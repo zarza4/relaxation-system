@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="VideoPlayerNET10.Pages.VideoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Videos">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <SearchBar
+            Grid.Row="0"
+            x:Name="SearchBox"
+            Placeholder="Search Videos"
+            TextChanged="SearchChanged"/>
+
+        <CollectionView
+            Grid.Row="1"
+            x:Name="TagView"
+            HeightRequest="80"
+            SelectionChanged="TagSelected">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Border
+                        Margin="5"
+                        HeightRequest="76">
+
+                        <VerticalStackLayout
+                            Spacing="4">
+
+                            <Label
+                                Text="{Binding Name}"
+                                HorizontalTextAlignment="Center"
+                                FontAttributes="Bold"
+                                TextColor="White"/>
+
+                            <Label
+                                Text="{Binding Count,
+                                StringFormat='({0})'}"
+                               HorizontalTextAlignment="Center"
+                               TextColor="White"/>
+
+                            <Image
+                                Source="{Binding IconPath}"
+                                HeightRequest="48"
+                                Aspect="AspectFit"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <CollectionView
+            Grid.Row="2"
+            x:Name="VideoCollection"
+            SelectionMode="Single"
+            SelectionChanged="VideoSelected">
+
+            <CollectionView.ItemsLayout>
+
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="2"/>
+
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    
+
+                        <VerticalStackLayout>
+
+                            <Image
+                                Source="{Binding ThumbnailPath}"
+                                HeightRequest="180"
+                                Aspect="AspectFill"/>
+
+                            <Label
+                                Text="{Binding Title}"
+                                FontAttributes="Bold"
+                                FontSize="18"/>
+
+                            <Label
+                                Text="{Binding Stars}"
+                                TextColor="Gold"/>
+
+                            <Label
+                                Text="{Binding ResolutionLabel}"
+                                FontAttributes="Bold">
+
+                                <Label.Triggers>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Height}"
+                                        Value="720">
+
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="Red"/>
+
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Height}"
+                                        Value="1080">
+
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="Lime"/>
+
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Height}"
+                                        Value="2160">
+
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="Gold"/>
+
+                                    </DataTrigger>
+
+                                </Label.Triggers>
+
+                            </Label>
+
+                        </VerticalStackLayout>
+
+                    
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

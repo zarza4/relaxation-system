@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="VideoPlayerNET10.Pages.VideoDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Video Details">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="12">
+
+            <Image
+                x:Name="ThumbnailImage"
+                HeightRequest="250"
+                Aspect="AspectFill"/>
+
+            <Label
+                x:Name="TitleLabel"
+                FontSize="24"
+                FontAttributes="Bold"/>
+
+            <Label
+                x:Name="ResolutionLabel"
+                FontSize="18"
+                FontAttributes="Bold"/>
+
+            <Label
+                x:Name="ResolutionTextLabel"
+                FontSize="14"/>
+
+            <Label
+                x:Name="RatingLabel"
+                FontSize="20"
+                TextColor="Gold"/>
+
+            <Label
+                x:Name="DescriptionLabel"/>
+
+            <Label
+                Text="Tags"
+                FontAttributes="Bold"/>
+
+            <FlexLayout
+                x:Name="TagsLayout"
+                Wrap="Wrap"
+                Direction="Row"/>
+
+            <Label
+                x:Name="CaptionInfoLabel"
+                FontAttributes="Italic"/>
+
+            <Border
+                BackgroundColor="#222222">
+
+                <VerticalStackLayout>
+
+                    <Label
+                        Text="Playback Options"
+                        FontAttributes="Bold"/>
+
+                    <HorizontalStackLayout>
+
+                        <Label
+                            VerticalOptions="Center"
+                            Text="Enable Captions"/>
+
+                        <Switch
+                            x:Name="CaptionsSwitch"/>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+
+                        <Label
+                            VerticalOptions="Center"
+                            Text="Loop Video"/>
+
+                        <Switch
+                            x:Name="LoopSwitch"/>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Button
+                Text="Select Music"
+                Clicked="SelectMusicClicked"/>
+
+            <Button
+                Text="Use this Video"
+                Clicked="PlayVideoClicked"/>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

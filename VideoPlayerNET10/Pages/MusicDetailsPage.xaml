@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="VideoPlayerNET10.Pages.MusicDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Music Details">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="12">
+
+            <Label
+                x:Name="TitleLabel"
+                FontSize="24"
+                FontAttributes="Bold"/>
+
+            <Label
+                x:Name="ArtistLabel"
+                FontSize="18"/>
+
+            <Label
+                x:Name="RatingLabel"
+                FontSize="20"
+                TextColor="Gold"/>
+
+            <Label
+                x:Name="DescriptionLabel"/>
+
+            <Label
+                Text="Tags"
+                FontAttributes="Bold"/>
+
+            <FlexLayout
+                x:Name="TagsLayout"
+                Wrap="Wrap"
+                Direction="Row"/>
+
+            <Button
+                Text="Use This Music"
+                Clicked="UseMusicClicked"/>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>
