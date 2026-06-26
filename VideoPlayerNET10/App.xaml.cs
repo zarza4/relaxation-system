@@ -1,4 +1,4 @@
-﻿namespace VideoPlayerNET10;
+namespace VideoPlayerNET10;
 
 public partial class App : Application
 {
