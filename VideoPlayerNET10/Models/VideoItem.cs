@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Graphics;
 
 namespace VideoPlayerNET10.Models;
 using VideoPlayerNET10.Services;
