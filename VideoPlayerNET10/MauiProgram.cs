@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui;
 
 using VideoPlayerNET10.Pages;
 using VideoPlayerNET10.Services;
