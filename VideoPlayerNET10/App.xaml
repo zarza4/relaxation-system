@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 
 <Application
     x:Class="VideoPlayerNET10.App"
@@ -8,7 +8,6 @@
     <Application.Resources>
 
         <Color x:Key="BackgroundColor">Grey</Color>
-        <Color x:Key="CardColor">Grey</Color>
         <Color x:Key="AccentColor">Beige</Color>
         <Color x:Key="TextColor">White</Color>
 
@@ -47,18 +46,20 @@
 
         <Style TargetType="Label">
             <Setter Property="TextColor"
-                    Value="{StaticResource TextColor}" />
+            Value="{StaticResource TextColor}" />
+            <Setter Property="FontFamily"
+            Value="HanyiWenHei" />
         </Style>
 
         <Style TargetType="Button">
+            <Setter Property="FontFamily"
+            Value="HanyiWenHei" />
             <Setter Property="BackgroundColor"
-                    Value="{StaticResource AccentColor}" />
-
+            Value="{StaticResource AccentColor}" />
             <Setter Property="TextColor"
-                    Value="#333333" />
-
+            Value="#333333" />
             <Setter Property="CornerRadius"
-                    Value="8" />
+            Value="8" />
         </Style>
 
     </Application.Resources>
