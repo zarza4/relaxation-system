@@ -1,4 +1,4 @@
-﻿namespace VideoPlayerNET10.Models;
+namespace VideoPlayerNET10.Models;
 
 public class MusicItem
 {
