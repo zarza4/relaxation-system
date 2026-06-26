@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using VideoPlayerNET10.Models;
 
 namespace VideoPlayerNET10.Services;
