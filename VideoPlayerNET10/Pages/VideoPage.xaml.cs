@@ -8,119 +8,126 @@ public partial class VideoPage : ContentPage
     private readonly JsonService _json;
 
     private List<VideoItem> _videos = new();
+    private List<TagItem> _allTags = new();
+
+    private bool _bgToggle = false;
 
     public VideoPage(JsonService json)
     {
         InitializeComponent();
-
         _json = json;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        _videos = _json.LoadVideos();
+        TransitionOverlay.Opacity = 1;
 
+        _videos = _json.LoadVideos();
         VideoCollection.ItemsSource = _videos;
 
         BuildTags();
+
+        await Task.Delay(50);
+
+        await TransitionOverlay.FadeToAsync(0, 500, Easing.CubicOut);
     }
 
     private void BuildTags()
     {
-        var tags =
+        _allTags =
             _videos
-            .SelectMany(x => x.Tags)
-            .GroupBy(x => x)
-            .Select(x => new Models.TagItem
+            .SelectMany(v => v.Tags)
+            .Distinct()
+            .OrderBy(t => t)
+            .Select(tag => new TagItem
             {
-                Name = x.Key,
-                Count = x.Count(),
-                IconPath =
-                    CollectionSettings.GetTagIconPath(
-                        x.Key)
+                Name = tag,
+                Count = _videos.Count(v => v.Tags.Contains(tag)),
+                IconPath = CollectionSettings.GetTagIconPath(tag),
+                BackgroundPath = CollectionSettings.GetTagCardPath(tag)
             })
-            .OrderBy(x => x.Name)
             .ToList();
 
-        TagView.ItemsSource = tags;
+        TagView.ItemsSource = _allTags;
     }
 
-    private void TagSelected(
-        object? sender,
-        SelectionChangedEventArgs e)
+    // ✅ ONLY RELIABLE EVENT
+    private async void TagSelected(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count == 0)
             return;
 
-        var tag =
-            (TagItem)e.CurrentSelection[0];
+        var tag = (TagItem)e.CurrentSelection[0];
 
+        // filter videos
         VideoCollection.ItemsSource =
-            _videos
-            .Where(x =>
-                x.Tags.Contains(tag.Name))
-                .ToList();
+            _videos.Where(v => v.Tags.Contains(tag.Name)).ToList();
 
-        if (sender is CollectionView collection)
-        {
-            collection.SelectedItem = null;
-        }
+        // background transition
+        await ChangeBackgroundAsync(
+            CollectionSettings.GetBackgroundForTag(tag.Name)
+        );
+
+        ((CollectionView)sender).SelectedItem = null;
     }
 
-    private void SearchChanged(
-        object? sender,
-        TextChangedEventArgs e)
+    // ✅ CROSSFADE BACKGROUND
+    private async Task ChangeBackgroundAsync(string newImage)
     {
-        string search =
-            e.NewTextValue ?? "";
+        var current = _bgToggle ? BgB : BgA;
+        var next = _bgToggle ? BgA : BgB;
+
+        next.Source = newImage;
+        next.Opacity = 0;
+
+        await Task.Delay(20);
+
+        await Task.WhenAll(
+            current.FadeToAsync(0, 400),
+            next.FadeToAsync(1, 400)
+        );
+
+        _bgToggle = !_bgToggle;
+    }
+
+    private void SearchChanged(object sender, TextChangedEventArgs e)
+    {
+        string search = e.NewTextValue ?? "";
 
         if (string.IsNullOrWhiteSpace(search))
         {
-            VideoCollection.ItemsSource =
-                _videos;
-
+            TagView.ItemsSource = _allTags;
             return;
         }
 
-        VideoCollection.ItemsSource =
-            _videos
-            .Where(x =>
-                x.Title.Contains(
-                    search,
-                    StringComparison.OrdinalIgnoreCase)
-                ||
-                x.Tags.Any(t =>
-                    t.Contains(
-                        search,
-                        StringComparison.OrdinalIgnoreCase)))
+        TagView.ItemsSource =
+            _allTags.Where(t =>
+                t.Name.Contains(search, StringComparison.OrdinalIgnoreCase))
             .ToList();
     }
 
-    private async void VideoSelected(
-        object? sender,
-        SelectionChangedEventArgs e)
+    private async void VideoSelected(object sender, SelectionChangedEventArgs e)
     {
-        await DisplayAlertAsync(
-        "Debug",
-        "Video clicked",
-        "OK");
         if (e.CurrentSelection.Count == 0)
             return;
 
-        var video =
-            (VideoItem)e.CurrentSelection[0];
+        var video = (VideoItem)e.CurrentSelection[0];
 
-        CollectionSettings.SelectedVideo =
-            video;
+        CollectionSettings.SelectedVideo = video;
 
-        if (sender is CollectionView collection)
-        {
-            collection.SelectedItem = null;
-        }
+        ((CollectionView)sender).SelectedItem = null;
 
-        await Shell.Current.GoToAsync(
-            nameof(VideoDetailsPage));
+        await Shell.Current.GoToAsync(nameof(VideoDetailsPage));
+    }
+
+    private async void BackClicked(object sender, EventArgs e)
+    {
+        TransitionOverlay.Opacity = 0;
+
+        await TransitionOverlay.FadeToAsync(1, 400, Easing.CubicIn);
+
+        await Shell.Current.GoToAsync("..");
     }
 }
