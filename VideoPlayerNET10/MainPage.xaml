@@ -1,53 +1,160 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     x:Class="VideoPlayerNET10.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Video Player">
+    Shell.NavBarIsVisible="False">
 
-    <ScrollView>
+    <Grid>
 
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="15"
->
+        <!-- Background -->
+        <Image
+            Source="background_default.png"
+            Aspect="AspectFill" />
 
-            <Label
-                Text="Welcome to the Video Player."
-                FontSize="32"
-                FontAttributes="Bold"
-                FontFamily="HanyiWenHei"
-                HorizontalOptions="Center"/>
+        <!-- Dark overlay for readability -->
+        <BoxView
+            Color="#66000000" />
 
-            <Border
-                BackgroundColor="#222222">
+        <ScrollView>
+
+            <VerticalStackLayout
+                Padding="40"
+                Spacing="20"
+                VerticalOptions="Center">
+
+                <!-- Title -->
 
                 <Label
-                    x:Name="CollectionLabel"
-                    FontFamily="HanyiWenHei"
-                    Text="No Collection Selected"/>
-            </Border>
+                    Text="VIDEO PLAYER"
+                    FontSize="42"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    TextColor="White" />
 
-            <Button
-                Text="Select Collection"
-                FontFamily="HanyiWenHei"
-                Clicked="SelectCollectionClicked"/>
+                <Label
+                    Text="Media Collection Manager"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    TextColor="#DDDDDD" />
 
-            <Button
-                Text="Videos"
-                Clicked="VideosClicked"/>
+                <!-- Collection -->
 
-            <Button
-                Text="Music"
-                Clicked="MusicClicked"/>
+                <Border
+                    BackgroundColor="#AA000000"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="15">
 
-            <Button
-                Text="Player"
-                Clicked="PlayerClicked"/>
+                    <VerticalStackLayout>
 
-        </VerticalStackLayout>
+                        <Label
+                            Text="Current Collection"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            TextColor="#E0C88A" />
 
-    </ScrollView>
+                        <Label
+                            x:Name="CollectionLabel"
+                            Text="No Collection Selected"
+                            FontSize="16"
+                            TextColor="White" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Select Collection -->
+
+                <Grid
+                    HeightRequest="60">
+
+                    <Image
+                        Source="button.png"
+                        Aspect="Fill" />
+
+                    <Button
+                        Text="Select Collection"
+                        Clicked="SelectCollectionClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        TextColor="#333333"
+                        FontSize="22"
+                        FontAttributes="Bold" />
+
+                </Grid>
+
+                <!-- Videos -->
+
+                <Grid
+                    HeightRequest="60">
+
+                    <Image
+                        Source="button.png"
+                        Aspect="Fill" />
+
+                    <Button
+                        Text="Videos"
+                        Clicked="VideosClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        TextColor="#333333"
+                        FontSize="22"
+                        FontAttributes="Bold" />
+
+                </Grid>
+
+                <!-- Music -->
+
+                <Grid
+                    HeightRequest="60">
+
+                    <Image
+                        Source="button.png"
+                        Aspect="Fill" />
+
+                    <Button
+                        Text="Music"
+                        Clicked="MusicClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        TextColor="#333333"
+                        FontSize="22"
+                        FontAttributes="Bold" />
+
+                </Grid>
+
+                <!-- Player -->
+
+                <Grid
+                    HeightRequest="60">
+
+                    <Image
+                        Source="button.png"
+                        Aspect="Fill" />
+
+                    <Button
+                        Text="Player"
+                        Clicked="PlayerClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        TextColor="#333333"
+                        FontSize="22"
+                        FontAttributes="Bold" />
+
+                </Grid>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <BoxView
+            x:Name="TransitionOverlay"
+            BackgroundColor="White"
+            Opacity="0"
+            InputTransparent="True"/>
+
+    </Grid>
 
 </ContentPage>
