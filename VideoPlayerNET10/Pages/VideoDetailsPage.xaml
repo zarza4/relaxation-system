@@ -4,99 +4,121 @@
     x:Class="VideoPlayerNET10.Pages.VideoDetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Video Details">
+    Shell.NavBarIsVisible="False">
 
-    <ScrollView>
+    <AbsoluteLayout>
 
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="12">
+        <!-- BACKGROUND LAYERS -->
+        <Image
+            x:Name="BgA"
+            Source="background_default.png"
+            Aspect="AspectFill"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-            <Image
-                x:Name="ThumbnailImage"
-                HeightRequest="250"
-                Aspect="AspectFill"/>
+        <Image
+            x:Name="BgB"
+            Source="background_default.png"
+            Aspect="AspectFill"
+            Opacity="0"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-            <Label
-                x:Name="TitleLabel"
-                FontSize="24"
-                FontAttributes="Bold"/>
+        <!-- DARK OVERLAY -->
+        <BoxView
+            Color="#66000000"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-            <Label
-                x:Name="ResolutionLabel"
-                FontSize="18"
-                FontAttributes="Bold"/>
+        <!-- CONTENT -->
+        <ScrollView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All">
 
-            <Label
-                x:Name="ResolutionTextLabel"
-                FontSize="14"/>
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="12">
 
-            <Label
-                x:Name="RatingLabel"
-                FontSize="20"
-                TextColor="Gold"/>
+                <!-- BACK BUTTON -->
+                <Grid HeightRequest="55">
 
-            <Label
-                x:Name="DescriptionLabel"/>
+                    <Image Source="button.png" Aspect="Fill"/>
 
-            <Label
-                Text="Tags"
-                FontAttributes="Bold"/>
+                    <Button
+                        Text="← Back"
+                        BackgroundColor="Transparent"
+                        TextColor="#333"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        Clicked="BackClicked"/>
+                </Grid>
 
-            <FlexLayout
-                x:Name="TagsLayout"
-                Wrap="Wrap"
-                Direction="Row"/>
+                <!-- VIDEO INFO -->
+                <Image
+                    x:Name="ThumbnailImage"
+                    HeightRequest="250"
+                    Aspect="AspectFill"/>
 
-            <Label
-                x:Name="CaptionInfoLabel"
-                FontAttributes="Italic"/>
+                <Label x:Name="TitleLabel"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
 
-            <Border
-                BackgroundColor="#222222">
+                <Label x:Name="ResolutionLabel"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
 
-                <VerticalStackLayout>
+                <Label x:Name="ResolutionTextLabel"
+                       FontSize="14"
+                       TextColor="White"/>
 
-                    <Label
-                        Text="Playback Options"
-                        FontAttributes="Bold"/>
+                <Label x:Name="RatingLabel"
+                       FontSize="20"
+                       TextColor="Gold"/>
 
-                    <HorizontalStackLayout>
+                <Label x:Name="DescriptionLabel"
+                       TextColor="White"/>
 
-                        <Label
-                            VerticalOptions="Center"
-                            Text="Enable Captions"/>
+                <!-- TAGS -->
+                <Label Text="Tags"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
 
-                        <Switch
-                            x:Name="CaptionsSwitch"/>
+                <FlexLayout
+                    x:Name="TagsLayout"
+                    Wrap="Wrap"
+                    Direction="Row"/>
 
-                    </HorizontalStackLayout>
+                <!-- CAPTIONS -->
+                <Label x:Name="CaptionInfoLabel"
+                       FontAttributes="Italic"
+                       TextColor="White"/>
 
-                    <HorizontalStackLayout>
+                <Switch x:Name="CaptionsSwitch"/>
 
-                        <Label
-                            VerticalOptions="Center"
-                            Text="Loop Video"/>
+                <!-- BUTTONS -->
+                <Button
+                    Text="Select Music"
+                    Clicked="SelectMusicClicked"/>
 
-                        <Switch
-                            x:Name="LoopSwitch"/>
+                <Button
+                    Text="Use this Video"
+                    Clicked="PlayVideoClicked"/>
 
-                    </HorizontalStackLayout>
+            </VerticalStackLayout>
 
-                </VerticalStackLayout>
+        </ScrollView>
 
-            </Border>
+        <!-- TRANSITION OVERLAY -->
+        <BoxView
+            x:Name="TransitionOverlay"
+            BackgroundColor="White"
+            Opacity="0"
+            InputTransparent="True"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-            <Button
-                Text="Select Music"
-                Clicked="SelectMusicClicked"/>
-
-            <Button
-                Text="Use this Video"
-                Clicked="PlayVideoClicked"/>
-
-        </VerticalStackLayout>
-
-    </ScrollView>
+    </AbsoluteLayout>
 
 </ContentPage>
