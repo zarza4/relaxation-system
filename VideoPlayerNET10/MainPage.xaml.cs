@@ -1,4 +1,4 @@
-﻿using VideoPlayerNET10.Pages;
+using VideoPlayerNET10.Pages;
 using VideoPlayerNET10.Services;
 using CommunityToolkit.Maui.Storage;
 
@@ -52,7 +52,16 @@ public partial class MainPage : ContentPage
         if (!ValidateCollection())
             return;
 
+        TransitionOverlay.Opacity = 0;
+
+        await TransitionOverlay.FadeToAsync(
+            1,
+            350,
+            Easing.CubicIn);
+
         await Shell.Current.GoToAsync(nameof(VideoPage));
+
+        TransitionOverlay.Opacity = 0;
     }
 
     private async void MusicClicked(object? sender, EventArgs e)
