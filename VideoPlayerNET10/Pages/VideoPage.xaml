@@ -4,153 +4,182 @@
     x:Class="VideoPlayerNET10.Pages.VideoPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Videos">
+    Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="Auto,Auto,*">
+    <AbsoluteLayout>
 
-        <SearchBar
-            Grid.Row="0"
-            x:Name="SearchBox"
-            Placeholder="Search Videos"
-            TextChanged="SearchChanged"/>
+        <!-- BACKGROUND A -->
+        <Image
+            x:Name="BgA"
+            Source="background_default.png"
+            Aspect="AspectFill"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-        <CollectionView
-            Grid.Row="1"
-            x:Name="TagView"
-            HeightRequest="80"
-            SelectionChanged="TagSelected">
+        <!-- BACKGROUND B -->
+        <Image
+            x:Name="BgB"
+            Source="background_default.png"
+            Aspect="AspectFill"
+            Opacity="0"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal"/>
-            </CollectionView.ItemsLayout>
+        <!-- DARK OVERLAY -->
+        <BoxView
+            Color="#66000000"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-            <CollectionView.ItemTemplate>
+        <!-- CONTENT -->
+        <Grid
+            Padding="20"
+            RowDefinitions="Auto,Auto,Auto,*"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All">
 
-                <DataTemplate>
+            <!-- BACK -->
+            <Grid Grid.Row="0" HeightRequest="55">
+                <Image Source="button.png" Aspect="Fill"/>
+                <Button
+                    Text="← Back"
+                    Clicked="BackClicked"
+                    BackgroundColor="Transparent"
+                    TextColor="#333"
+                    FontSize="20"
+                    FontAttributes="Bold"/>
+            </Grid>
 
-                    <Border
-                        Margin="5"
-                        HeightRequest="76">
+            <!-- SEARCH -->
+            <SearchBar
+                Grid.Row="1"
+                x:Name="SearchBox"
+                Placeholder="Search Tags..."
+                BackgroundColor="#AA000000"
+                TextColor="White"
+                PlaceholderColor="#CCCCCC"
+                TextChanged="SearchChanged"/>
 
-                        <VerticalStackLayout
-                            Spacing="4">
+            <!-- TAGS -->
+            <CollectionView
+                Grid.Row="2"
+                x:Name="TagView"
+                HeightRequest="95"
+                SelectionMode="Single"
+                SelectionChanged="TagSelected">
 
-                            <Label
-                                Text="{Binding Name}"
-                                HorizontalTextAlignment="Center"
-                                FontAttributes="Bold"
-                                TextColor="White"/>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
+                </CollectionView.ItemsLayout>
 
-                            <Label
-                                Text="{Binding Count,
-                                StringFormat='({0})'}"
-                               HorizontalTextAlignment="Center"
-                               TextColor="White"/>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
 
-                            <Image
-                                Source="{Binding IconPath}"
-                                HeightRequest="48"
-                                Aspect="AspectFit"/>
+                        <Border
+                            Margin="6"
+                            WidthRequest="640"
+                            HeightRequest="96"
+                            StrokeThickness="4.5"
+                            Stroke="#E0C88A"
+                            StrokeShape="RoundRectangle 36">
 
-                        </VerticalStackLayout>
+                            <Grid ColumnDefinitions="60,*">
 
-                    </Border>
+                                <Image
+                                    Source="{Binding IconPath}"
+                                    WidthRequest="64"
+                                    HeightRequest="64"
+                                    Aspect="AspectFit"
+                                    VerticalOptions="Center"/>
 
-                </DataTemplate>
+                                <Grid Grid.Column="1">
 
-            </CollectionView.ItemTemplate>
+                                    <Image
+                                        Source="{Binding BackgroundPath}"
+                                        Aspect="AspectFill"/>
 
-        </CollectionView>
+                                    <VerticalStackLayout Padding="12">
 
-        <CollectionView
-            Grid.Row="2"
-            x:Name="VideoCollection"
-            SelectionMode="Single"
-            SelectionChanged="VideoSelected">
+                                        <Label
+                                            Text="{Binding Name}"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="White"/>
 
-            <CollectionView.ItemsLayout>
+                                        <Label
+                                            Text="{Binding Count,StringFormat='{0} videos'}"
+                                            FontSize="12"
+                                            TextColor="#E0C88A"/>
+                                    </VerticalStackLayout>
 
-                <GridItemsLayout
-                    Orientation="Vertical"
-                    Span="2"/>
+                                </Grid>
 
-            </CollectionView.ItemsLayout>
+                            </Grid>
 
-            <CollectionView.ItemTemplate>
+                        </Border>
 
-                <DataTemplate>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-                    
+            </CollectionView>
 
-                        <VerticalStackLayout>
+            <!-- VIDEOS -->
+            <CollectionView
+                Grid.Row="3"
+                x:Name="VideoCollection"
+                SelectionMode="Single"
+                SelectionChanged="VideoSelected">
 
-                            <Image
-                                Source="{Binding ThumbnailPath}"
-                                HeightRequest="180"
-                                Aspect="AspectFill"/>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"/>
+                </CollectionView.ItemsLayout>
 
-                            <Label
-                                Text="{Binding Title}"
-                                FontAttributes="Bold"
-                                FontSize="18"/>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
 
-                            <Label
-                                Text="{Binding Stars}"
-                                TextColor="Gold"/>
+                        <Border
+                            Margin="10"
+                            Padding="10"
+                            BackgroundColor="#AA000000"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15">
 
-                            <Label
-                                Text="{Binding ResolutionLabel}"
-                                FontAttributes="Bold">
+                            <VerticalStackLayout Spacing="8">
 
-                                <Label.Triggers>
+                                <Image
+                                    Source="{Binding ThumbnailPath}"
+                                    HeightRequest="220"
+                                    Aspect="AspectFill"/>
 
-                                    <DataTrigger
-                                        TargetType="Label"
-                                        Binding="{Binding Height}"
-                                        Value="720">
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="White"/>
 
-                                        <Setter
-                                            Property="TextColor"
-                                            Value="Red"/>
+                                <Label Text="{Binding Stars}" TextColor="Gold"/>
+                                <Label Text="{Binding ResolutionLabel}" TextColor="White"/>
 
-                                    </DataTrigger>
+                            </VerticalStackLayout>
 
-                                    <DataTrigger
-                                        TargetType="Label"
-                                        Binding="{Binding Height}"
-                                        Value="1080">
+                        </Border>
 
-                                        <Setter
-                                            Property="TextColor"
-                                            Value="Lime"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-                                    </DataTrigger>
+            </CollectionView>
 
-                                    <DataTrigger
-                                        TargetType="Label"
-                                        Binding="{Binding Height}"
-                                        Value="2160">
+        </Grid>
 
-                                        <Setter
-                                            Property="TextColor"
-                                            Value="Gold"/>
+        <!-- FADE OVERLAY -->
+        <BoxView
+            x:Name="TransitionOverlay"
+            BackgroundColor="White"
+            Opacity="0"
+            InputTransparent="True"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"/>
 
-                                    </DataTrigger>
-
-                                </Label.Triggers>
-
-                            </Label>
-
-                        </VerticalStackLayout>
-
-                    
-
-                </DataTemplate>
-
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
-
-    </Grid>
+    </AbsoluteLayout>
 
 </ContentPage>
