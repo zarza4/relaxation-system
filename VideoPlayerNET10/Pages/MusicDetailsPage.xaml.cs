@@ -1,4 +1,4 @@
-﻿using VideoPlayerNET10.Services;
+using VideoPlayerNET10.Services;
 
 namespace VideoPlayerNET10.Pages;
 
